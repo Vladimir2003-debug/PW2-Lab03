@@ -1,0 +1,29 @@
+body {
+    color: white;
+    background-color: black; 
+}
+button {
+    background-color: #3b3b3b;
+    color : white;
+    border: none;
+    height: 30px;
+    width: 200px;
+}
+
+input.bCreateNewFile {
+    background-color: #3b3b3b;
+    color : white;
+    border: none;
+    height: 30px;
+    width: 200px;
+}
+
+input {
+    height: 30px;
+    width: 200px;
+}
+
+textarea {
+    height : 300px;
+    width: 200px;
+}
