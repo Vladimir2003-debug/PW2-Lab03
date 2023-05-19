@@ -4,27 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script scr="markdown.js"></script>
+    <title>Markdown Files</title>
+    <script src="markdown.js"></script>
     <link rel="stylesheet" href="Style.css" type="text/css">
 </head>
 <body>
-   <!-- Ejercicio 1  -->
-   <!-- Parte I -->
-    <label>list of files</label>
-    <button onclick="listar()">Ver Listado</button>
+    <!-- Ejercicio 1  -->
+    <h1>Ejercicio 1</h1>
+
+    <!-- Parte I -->
+    <h4>Listas los archivos Markdown disponibles</h4>
+    <label>Lista de Archivos</label>
+    <br>
+    <button onclick="listar()">Ver archivos</button>
+    <br>
     <div id="lista"></div>
 
    <!-- Parte II -->
    
+
    <!-- Parte III -->
-    <button onclick="mostrarCreate()">crear Nuevo</button>
-    <div id="create">
-        <label>Titulo</label><br>
-        <input id="title" type="text"><br>
-        <label>Contenido</label><br>
-        <textarea id="text" placeholder="texto del archivo"></textarea><br>
-        <button onclick="enviar()">ENVIAR</button>  
-    <div>
+    <h4>Crear nuevos archivos MarkDown y almacenarlos en el servidor</h4>
+    <br>
+    <button onclick="createNew()" id="bCreate">crear Nuevo</button>
+    <form id="createNewFile" method="POST" hidden>
+        <br>
+        <label>TITULO</label>
+        <br><br>
+        <input id="title" type="text">
+        <br><br>
+        <label>CONTENIDO</label>
+        <br><br>
+        <textarea id="text" placeholder="texto del archivo"></textarea>
+        <br><br>
+        <input type="submit" value="Enviar" id="bCreateNewFile">
+        <br>
+    <form>
+    <div id="content"></div>
 </body>
 </html>
