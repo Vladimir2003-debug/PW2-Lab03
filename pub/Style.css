@@ -27,3 +27,6 @@ textarea {
     height : 300px;
     width: 200px;
 }
+#cTitle, #cText {
+      text-decoration: underline;
+}

@@ -1,40 +1,93 @@
 /**
  *  I - Listas los archivos Markdown disponibles
  */
-function listar() {
-    const url = "http://localhost:3000/listar";
+function list() {
+    const url = "http://localhost:3000/list";
+    
     fetch(url).then(
         response => response.json()
     ).then(
         data => {
-            var html = "<ul>";
-            var length = data.text.length;
+            console.log(data.files)
+
+            var html = `<ul>
+                <!-- Ejercicio 2  -->
+                <h1>Ejercicio II</h1>
+                <h4>Ver el contenido de un archivo Markdown traducido a HTML</h4>
+            `;            
+            var list = document.querySelector("#list")
+            var length = data.files.length;
+
+            if(length == 0) {
+                list.innerHTML = "<br><h3>No hay archivos en el servidor</h3>";
+                return
+            }
+            
             for (let index = 0; index < length; index++) {
-                html += `<li>${data.text[index]}</li>
-                <button onclick='verContenido("${data.text[index]}")'>ver</button>
+                html += `
+                <li>${data.files[index]}</li>
+                <button onclick='viewContent("${data.files[index]}")'>VIEW</button>
+                <button onclick='deleteFile("${data.files[index]}")'>DELETE</button>
                 `;
             }
 
             html += `</ul>
-            <div id="contenido"></div>
             `;
-            document.querySelector("#lista").innerHTML = html;
+
+            list.innerHTML = html;
         }
     );
+}
+
+function deleteFile(file) {
+    
+    const url = "http://localhost:3000/delete";
+
+    const data = {
+        title : file,
+    }
+
+    const request = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    };
+
+    fetch(url, request)
+    .then(
+        response => response.json()
+    ).then(
+        data => {
+            var htmltext = "";
+            
+            if(data.confirm == 'True') {
+                htmltext += `<h4>${file} Eliminado</h4>`
+            }else {
+                htmltext += '<h4>Error No se pudo eliminar el archivo</h4>'
+            }
+            
+            document.getElementById("content").innerHTML = htmltext;
+        }
+    );
+
+    document.getElementById("bList").click();
 }
 
 /**
  * II - Ver el contenido de un archivo Markdown traducido a HTML
  */
 
-function verContenido(file) {
-    const url = "http://localhost:3000/contenido?nombre=" + file;
+function viewContent(file) {
+    const url = "http://localhost:3000/content?name=" + file;
 
     fetch(url).then(
-        response => response.json())
-    .then(
+        response => response.json()
+    ).then(
         data => {
-            document.querySelector("#contenido").innerHTML = data.text;
+            console.log(data);
+            document.querySelector("#content").innerHTML = data.text;
         }
     );
 }
@@ -43,17 +96,21 @@ function verContenido(file) {
 /**
  * III - Crear nuevos archivos MarkDown y almacenarlos en el servidor
  */
-function createNew() {
+function createNewFile () {
     document.querySelector("#createNewFile").hidden = false;
+    document.querySelector("#contentNewFile").innerHTML = "";
+
 }
 
-function enviar(titulo,texto) {
-    console.log(titulo+texto)
-    const url = "http://localhost:3000/";
+function send(title,text) {
+    
+    const url = "http://localhost:3000/create";
+
     const data = {
-        title: titulo,
-        text: texto,
+        title: title,
+        text: text,
     };
+
     console.log(data)
 
     const request = {
@@ -63,28 +120,34 @@ function enviar(titulo,texto) {
         },
         body: JSON.stringify(data),
     };
-    console.log(request)
+
     fetch(url, request).then(
         response => response.json())
     .then(
         data => {
+           
+            console.log(data);
             
+            var content = `
+                <h3 id="cTitle">TITLE:</h3>
+                <h4>${data.title}</h4>
+                <h3 id="cText">TEXT:</h3>
+                <p>${data.text}</p>
+                `;
+            document.getElementById("createNewFile").hidden = true;
+            document.getElementById("contentNewFile").innerHTML = content; 
         }
-    );
+    ); 
     
-    var content = `
-        <h4>${titulo}</h4>
-        <p>${texto}</p>
-    `;
-
-    document.getElementById("content").innerHTML = content;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
     const title = document.querySelector('#title')
     const text = document.querySelector('#text')
+    
     document.querySelector('#createNewFile').onsubmit = () => {
-        enviar(title.value,text.value)
+        send(title.value,text.value)
         return false;
     }
+
 })
