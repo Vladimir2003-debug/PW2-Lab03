@@ -57,7 +57,7 @@ DOCENTE:
 INTEGRANTES:
 <ul>
 <li>Vladimir Arturo Sulla Quispe - vsullaq@unsa.edu.pe</li>
-<li>GITHUB https://github.com/Vladimir2003-debug/PW2-LAB02 </li>
+<li>GITHUB https://github.com/Vladimir2003-debug/PW2-Lab03.git </li>
 </ul>
 
 </td>
