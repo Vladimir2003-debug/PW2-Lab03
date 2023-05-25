@@ -1,5 +1,6 @@
 /**
  *  I - Listas los archivos Markdown disponibles
+ * 
  */
 function list() {
     const url = "http://localhost:3000/list";
@@ -39,6 +40,11 @@ function list() {
     );
 }
 
+/** 
+ * Funcion que elimina archivos
+ * @param file - El nombre del archivo que vamos a eliminar
+*/
+
 function deleteFile(file) {
     
     const url = "http://localhost:3000/delete";
@@ -77,6 +83,7 @@ function deleteFile(file) {
 
 /**
  * II - Ver el contenido de un archivo Markdown traducido a HTML
+ * @param file - El nombre del archivo que vamos a ver su contenido
  */
 
 function viewContent(file) {
@@ -102,6 +109,11 @@ function createNewFile () {
 
 }
 
+/**
+ * Funcion que envia titulo y texto al servidor para la creacion de un archivo
+ * @param title - El titulo o nombre del archivo
+ * @param text - El contenido del archivo
+ */
 function send(title,text) {
     
     const url = "http://localhost:3000/create";
@@ -140,6 +152,9 @@ function send(title,text) {
     ); 
     
 }
+/**
+ * Esto permite asociar eventos a acciones
+ */
 
 document.addEventListener('DOMContentLoaded', function () {
     const title = document.querySelector('#title')
