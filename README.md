@@ -377,14 +377,14 @@ RAMA:main/
     - Si, en la consola del cliente usando console.log se puede ver.
 ## Referencias
 
-[1] https://www.ibm.com/docs/es/bpm/8.5.6?topic=apis-content-types
-[2] https://www.w3schools.com/nodejs/nodejs_filesystem.asp
-[3] JavaScript code using the latest ECMAScript. Packt Publishing Ltd, 2018.
-[4]  Greg Lim. Beginning Node.js, Express & MongoDB Development. Amazon, 2019.
-[5] https://www.w3schools.com/nodejs/nodejs_intro.asp
-[6]   https://nodejs.org/en/docs/guides/getting-started-guide/
-[7]   https://nodejs.dev/learn
-[8]   https://www.w3schools.com/js/js_api_fetch.asp
-[9]   https://expressjs.com/es/
-[10]   https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Using_Fetch
-[11]   https://developer.mozilla.org/es/docs/Learn/Server-side/Express_Nodejs/Introduction
+1. https://www.ibm.com/docs/es/bpm/8.5.6?topic=apis-content-types
+2. https://www.w3schools.com/nodejs/nodejs_filesystem.asp
+3. JavaScript code using the latest ECMAScript. Packt Publishing Ltd, 2018.
+4.  Greg Lim. Beginning Node.js, Express & MongoDB Development. Amazon, 2019.
+5. https://www.w3schools.com/nodejs/nodejs_intro.asp
+6.   https://nodejs.org/en/docs/guides/getting-started-guide/
+7.   https://nodejs.dev/learn
+8.   https://www.w3schools.com/js/js_api_fetch.asp
+9.   https://expressjs.com/es/
+10.   https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Using_Fetch
+11.   https://developer.mozilla.org/es/docs/Learn/Server-side/Express_Nodejs/Introduction
