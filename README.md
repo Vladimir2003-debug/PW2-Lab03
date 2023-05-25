@@ -73,7 +73,7 @@ Listas los archivos Markdown disponibles
 
 ### Solucion
 
-Primero en el html donde 
+- Primero en el html donde 
 
 ```html
     <!-- El button que ejecutara la accion -->
@@ -85,7 +85,7 @@ Primero en el html donde
     <div id="content"></div>
 ```
 
-Luego esta la peticion del cliente
+- Luego esta la peticion del cliente
 
 
 ```javascript
@@ -123,7 +123,7 @@ function list() {
 }
 
 ```
-En el servidor
+- En el servidor
 
 ```javascript
 
@@ -146,12 +146,12 @@ app.get('/list', (request, response) => {
 Ver el contenido de un archivo Markdown traducido a HTML
 ### Solucion 
 
-En el html
+- En el html
 
 ```html
 <!-- El html sera creado por el Ejercicio I--> 
 ```
-En el cliente
+- En el cliente
 
 ```javascript
 
@@ -170,7 +170,7 @@ function viewContent(file) {
 }
 
 ```
-En el servidor
+- En el servidor
 
 ```javascript
 app.get('/content',(request,response) => {
@@ -194,7 +194,7 @@ app.get('/content',(request,response) => {
 Crear nuevos archivos MarkDown y almacenarlos en el servidor
 ### Solucion
 
-En el HTML
+- En el HTML
 
 ```html
     <!-- El button para mostrar el formulario-->
@@ -219,14 +219,75 @@ En el HTML
     <div id="contentNewFile"></div>
 ```
 
-En el cliente
+- En el cliente
 
 ```javascript
+function createNewFile () {
 
+    document.querySelector("#createNewFile").hidden = false;
+    document.querySelector("#contentNewFile").innerHTML = "";
+
+}
+
+/**
+ * Funcion que envia titulo y texto al servidor para la creacion de un archivo
+ * @param title - El titulo o nombre del archivo
+ * @param text - El contenido del archivo
+ */
+function send(title,text) {
+    // La url(en este caso no enviaremos los datos en parametros por ser grandes)
+    const url = "http://localhost:3000/create";
+    // Data
+    const data = {
+        title: title,
+        text: text,
+    };
+
+    // La peticion al servidor
+    const request = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    };
+
+    fetch(url, request).then(
+        response => response.json())
+    .then(
+        data => {
+            // Cuando se envien los datos el servidor como confirmacion de que se ha creado exitosamente
+            // retornara los datos del archivo            
+            var content = `
+                <h3 id="cTitle">TITLE:</h3>
+                <h4>${data.title}</h4>
+                <h3 id="cText">TEXT:</h3>
+                <p>${data.text}</p>
+                `;
+            document.getElementById("createNewFile").hidden = true;
+            document.getElementById("contentNewFile").innerHTML = content; 
+        }
+    ); 
+    
+}
+/**
+ * Esto permite asociar eventos a acciones
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    // Se extrae la informacion puesta en el formulario
+    const title = document.querySelector('#title')
+    const text = document.querySelector('#text')
+    //Se crea un evento a el formulario createNewFile
+    document.querySelector('#createNewFile').onsubmit = () => {
+        send(title.value,text.value)
+        return false;
+    }
+
+})
 
 ```
 
-En el servidor
+- En el servidor
 
 ```javascript
 
@@ -250,8 +311,25 @@ app.post('/create', (request, response) => {
 });
 
 ```
+# Metodologia de Trabajo
 
+Para la solucion de los problemas se hizo lo siguiente:
+- Se creo el main donde se creo el proyecto de acuerdo a https://philna.sh/blog/2019/01/10/how-to-start-a-node-js-project/ aunque con algunas diferencias
+    - En "npx licence mit > LICENSE" solo se uso "npx licence mit" para la licencia funciono correctamente
+    - la licencia se creo con una plantilla de github, y el nombre de la licencia se creo con el nombre de usuario de github 
+- Una vez completados estos pasos se crearon ramas de la siguiente manera
+```
+RAMA:main/
+└── vladimir-sulla
+        ├── back-end
+        └── front-end
+```
 
+- Se creo el cliente el html y el archivo javascript en una rama
+- Se creo el servidor en otra rama
+- Estas dos ramas se unieron y se pulieron algunos defectos
+- Luego se unio al main donde se elaboro el README.md
+- Para los metodos usados para la lectura, eliminacion, creacion de archivos se uso NodeJs File System de W3schools[2]. 
 # Cuestionario
 
 - En el Ejemplo "Hola Mundo" con NodeJS. ¿Qué pasó con la línea: "Content type ….."?
@@ -300,3 +378,13 @@ app.post('/create', (request, response) => {
 ## Referencias
 
 [1] https://www.ibm.com/docs/es/bpm/8.5.6?topic=apis-content-types
+[2] https://www.w3schools.com/nodejs/nodejs_filesystem.asp
+[3] JavaScript code using the latest ECMAScript. Packt Publishing Ltd, 2018.
+[4]  Greg Lim. Beginning Node.js, Express & MongoDB Development. Amazon, 2019.
+[5] https://www.w3schools.com/nodejs/nodejs_intro.asp
+[6]   https://nodejs.org/en/docs/guides/getting-started-guide/
+[7]   https://nodejs.dev/learn
+[8]   https://www.w3schools.com/js/js_api_fetch.asp
+[9]   https://expressjs.com/es/
+[10]   https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Using_Fetch
+[11]   https://developer.mozilla.org/es/docs/Learn/Server-side/Express_Nodejs/Introduction
