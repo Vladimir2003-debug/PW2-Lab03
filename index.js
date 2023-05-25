@@ -28,8 +28,10 @@ app.get('/', (request, response) => {
  */
 
 app.get('/list', (request, response) => {
+	// Revisamos los archivos en files
     fs.readdir(path.resolve(__dirname, 'files'), 'utf8',
 		(err, data) => {
+			// En caso de error 
 			if (err) {
 				console.error(err)
 				response.status(500).json({
@@ -39,7 +41,7 @@ app.get('/list', (request, response) => {
 			}
 
 			console.log(data)
-
+			// Retorna la lista de archivos en un arreglo llamado files 
 			response.json({
 				files : data
 			})
@@ -53,7 +55,9 @@ app.get('/list', (request, response) => {
 
 
 app.get('/content',(request,response) => {
+	// Extraemos el nombre del archivo de la peticion
 	var name = request.query.name;
+		// Con ese nombre buscamos en files el archivo y extraemos el contenido en el 
 		fs.readFile(path.resolve(__dirname, 'files/' + name), 'utf8',
 		(err, data) => {
 			if (err) {
@@ -65,6 +69,7 @@ app.get('/content',(request,response) => {
 			}
 			
 			console.log(data)
+			// Devolvemos el contenido transformando el contendio markdown en formato html
 			response.json({
 				text: md.render(data).replace(/\n/g, '<br>')
 			})
@@ -72,10 +77,12 @@ app.get('/content',(request,response) => {
       //
 });
 
-
+/**
+ * Eliminacion de  los archivos
+ */
 app.post('/delete', (request, response) => {
 	console.log(request);
-
+	// Buscamos el archivo para eliminar 
 	fs.unlink(path.resolve(__filename,'../files/' + request.body.title ),
 		(err,data) => {
 			if (err) {
@@ -85,7 +92,7 @@ app.post('/delete', (request, response) => {
 				})
 				return
 			}
-			
+			// Notese que se uso POST, esto fue para mayor seguridad
 			response.setHeader('Content-Type','application/json')
 			response.end(JSON.stringify({
 				confirm : 'True', 
@@ -101,8 +108,10 @@ app.post('/delete', (request, response) => {
 
 app.post('/create', (request, response) => {
 	console.log(request.body);
+	// Extraemos el titulo y el contenido de la peticion del cliente
 	title = request.body.title
 	text = request.body.text
+	// Ubicamos donde queremos crear el nuevo archivo 
 	fs.writeFile(path.resolve(__dirname,'files/' + title + '.md'),
 		text,'utf8',
 		(err,data) => {
@@ -113,6 +122,7 @@ app.post('/create', (request, response) => {
 				})
 				return
 			}
+			// Devolvemos lo enviado para confirmar 
 			response.setHeader('Content-Type','application/json')
 			response.end(JSON.stringify({
 				title : title,
